@@ -3,7 +3,8 @@ MG-CFA simulation exploring parameter recovery for invariance testing.
 
 # Contents
 ## Code
-Model
+**1. Model**
+
 CE.2 <- "DD =~ DDrace + DDeconomic + DDreligion + DDpolitical
              ET =~ ETgoals + ETorganize + ETexample + ETdraftfb + ETfeedback
              SF =~ SFcareer + SFotherwork + SFdiscuss + SFperform
@@ -26,20 +27,20 @@ CE.2 <- "DD =~ DDrace + DDeconomic + DDreligion + DDpolitical
             SEevents ~~ SEactivities
             SEsocial ~~ SEevents"
             
-Base lavaan model
+**1a. Base lavaan model**
 
 CE.model<- cfa(CE.2, 
              data = NSSE, 
              missing = "ML")
              
-Adding group level
+**1a.1. Adding group level**
 
 CE.2.model3<- cfa(CE.2, 
        data = NSSE, 
        group = "countrycol",
        missing = "ML")
 
-Configural invariance model
+**1b. Configural invariance model**
 
 CE.2.model1<- cfa(CE.2, 
                    data = NSSE, 
@@ -48,7 +49,7 @@ CE.2.model1<- cfa(CE.2,
                    meanstructure = TRUE,
                    group.equal = c("loadings"))
                    
-Metric Invariance model
+**1c. Metric Invariance model**
 
 CE.2.model2a<- cfa(CE.2, 
                   data = NSSE, 
@@ -57,7 +58,7 @@ CE.2.model2a<- cfa(CE.2,
                   meanstructure = TRUE,
                   group.equal = c("loadings", "intercepts"))
 
-Scalar Invariance model
+**1d. Scalar Invariance model**
 
 CE.2.model3<- cfa(CE.2, 
                   data = NSSE, 
@@ -66,13 +67,13 @@ CE.2.model3<- cfa(CE.2,
                   meanstructure = TRUE,
                   group.equal = c("loadings", "intercepts", "means"))
 
-Code for any model summary/fit indices
+**2. Code for any model summary/fit indices**
 
 summary([model], fit.measures = TRUE)
 
 fitmeasures([model], fit.measures = c("chisq", "df", "CFI", "TLI", "RMSEA"))
 
-Data simulations
+**3. Data simulations**
 
 Output.1 <- sim(generate = lavaan, rawData = NSSE, nRep = 500, n = 275, model = CE.2.model1, group = "countrycol", lavaanfun = "cfa",  silent = FALSE, stopOnError = TRUE, seed = 47401)
 summary(Output.1)
@@ -87,7 +88,11 @@ Output.3 <- sim(generate = lavaan, rawData = NSSE, nRep = 500, n = 275, model = 
 summary(CE.2.model3)
 summary(Output.3)
 
+
+
 ## Data
+
+
 
 ## Reflection
 I have several broad areas that, as I reflect, I see areas of challenge and growth. The first area related to the exploration of my chosen topic, the second related to the exploration of a process, a last area related to expectations and reality. Our task was simple: create a project. We were given a very large canvas from which to paint; the outcome was an appropriate-to-graduate,-doctoral-level-coursework study on a topic of our choosing; the only small caveat was data needed to be in-hand early, so that brush strokes could be smoothed and shading and touch-ups could be corrected before the project 'dried' on December 7. For this project, I chose a simulation study; it was a first for me.
