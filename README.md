@@ -3,6 +3,89 @@ MG-CFA simulation exploring parameter recovery for invariance testing.
 
 # Contents
 ## Code
+Model
+CE.2 <- "DD =~ DDrace + DDeconomic + DDreligion + DDpolitical
+             ET =~ ETgoals + ETorganize + ETexample + ETdraftfb + ETfeedback
+             SF =~ SFcareer + SFotherwork + SFdiscuss + SFperform
+             SE =~ SEacademic + SElearnsup + SEdiverse + SEsocial + SEwellness + SEnonacad + SEactivities + SEevents
+            CE=~DD + ET + SF + SE
+            DDreligion ~~ DDpolitical
+            ETdraftfb ~~ ETfeedback
+            ETorganize ~~ ETdraftfb
+            ETgoals ~~ ETorganize
+            ETorganize ~~ ETexample
+            SFdiscuss ~~ SFcareer
+            SFdiscuss ~~ SFotherwork
+            SFcareer ~~ SFotherwork
+            SEacademic ~~ SEevents
+            SEdiverse ~~ SEactivities
+            SEacademic ~~ SElearnsup
+            SEsocial ~~ SEwellness
+            SEwellness ~~ SEnonacad
+            SEsocial ~~ SEnonacad
+            SEevents ~~ SEactivities
+            SEsocial ~~ SEevents"
+            
+Base lavaan model
+
+CE.model<- cfa(CE.2, 
+             data = NSSE, 
+             missing = "ML")
+             
+Adding group level
+
+CE.2.model3<- cfa(CE.2, 
+       data = NSSE, 
+       group = "countrycol",
+       missing = "ML")
+
+Configural invariance model
+
+CE.2.model1<- cfa(CE.2, 
+                   data = NSSE, 
+                   group = "countrycol",
+                   missing = "ML",
+                   meanstructure = TRUE,
+                   group.equal = c("loadings"))
+                   
+Metric Invariance model
+
+CE.2.model2a<- cfa(CE.2, 
+                  data = NSSE, 
+                  group = "countrycol",
+                  missing = "ML",
+                  meanstructure = TRUE,
+                  group.equal = c("loadings", "intercepts"))
+
+Scalar Invariance model
+
+CE.2.model3<- cfa(CE.2, 
+                  data = NSSE, 
+                  group = "countrycol",
+                  missing = "ML",
+                  meanstructure = TRUE,
+                  group.equal = c("loadings", "intercepts", "means"))
+
+Code for any model summary/fit indices
+
+summary([model], fit.measures = TRUE)
+
+fitmeasures([model], fit.measures = c("chisq", "df", "CFI", "TLI", "RMSEA"))
+
+Data simulations
+
+Output.1 <- sim(generate = lavaan, rawData = NSSE, nRep = 500, n = 275, model = CE.2.model1, group = "countrycol", lavaanfun = "cfa",  silent = FALSE, stopOnError = TRUE, seed = 47401)
+summary(Output.1)
+
+Output.2 <- sim(generate = lavaan, rawData = NSSE, nRep = 500, n = 275, model = CE.2.model2, group = "countrycol", lavaanfun = "cfa",  silent = FALSE, stopOnError = TRUE, seed = 47401)
+summary(CE.2.model2a)
+
+Output.2a <- sim(generate = lavaan, rawData = NSSE, nRep = 500, n = 275, model = CE.2.model2a, group = "countrycol", lavaanfun = "cfa",  silent = FALSE, stopOnError = TRUE, seed = 47401)
+summary(CE.2.model2)
+
+Output.3 <- sim(generate = lavaan, rawData = NSSE, nRep = 500, n = 275, model = CE.2.model3, group = "countrycol", lavaanfun = "cfa",  silent = FALSE, stopOnError = TRUE, seed = 47401)
+summary(CE.2.model3)
+summary(Output.3)
 
 ## Data
 
