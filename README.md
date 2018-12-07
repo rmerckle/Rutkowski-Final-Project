@@ -92,6 +92,7 @@ summary(Output.3)
 
 ## Data
 
+These data cannot be released into the public domain; however, I have included a results excel document that has many tabs of summary data and covariance matrices by group, so replication would be possible.
 
 
 ## Reflection
