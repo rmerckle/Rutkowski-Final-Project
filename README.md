@@ -1,7 +1,8 @@
-# Rutkowski-Final-Project
-This is a shell repository that illustrates how to build your repository for Y750
+# Merckle-Y750-Final-Project
+MG-CFA simulation exploring parameter recovery for invariance.
 
 # Contents
 ## Code
+
 ## Data
 ## Reflection
